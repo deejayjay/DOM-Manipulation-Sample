@@ -1,10 +1,10 @@
-# parcel-scss-boilerplate
+# Dom Manipulation Sample
 
-This is a boilerplate for web apps built using HTML, CSS/Scss and JavaScript and uses parcel bundler
+This app is built using HTML, CSS/Scss and JavaScript and uses parcel bundler
 
-## How to setup the boilerplate?
+## How to setup the applicaition?
 
-1. After downloading the contents of the Github repository or forking it, open the `parcel-scss-boilerplate` folder in VSCode, then run the following command to install all required node dependencies (parcel & sass):
+1. After downloading the contents of the Github repository or forking it, open the `dom-manipulation-sample` folder in VSCode, then run the following command to install all required node dependencies (parcel & sass):
 
 ```npm
 npm install

@@ -4,14 +4,7 @@ const btnTry2 = document.querySelector(".btn-try2");
 btnTry1.addEventListener("click", renderToDoOne);
 btnTry2.addEventListener("click", renderToDoTwo);
 
-// This function iterates through a parent element and
-// removes all its children and event handlers attached to them
-function removeAllChildren(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
-}
-
+// Render the first todo list which uses the first approach
 function renderToDoOne() {
   const todoOneWrapper = document.querySelector(".list1-wrapper");
 
@@ -39,6 +32,7 @@ function renderToDoOne() {
   attachClickEventToToDoItems(toDoItems);
 }
 
+// Render the first todo list which uses the second approach
 function renderToDoTwo() {
   const todoTwoWrapper = document.querySelector(".list2-wrapper");
 
@@ -54,6 +48,8 @@ function renderToDoTwo() {
               </ul>
   `;
 
+  // querySelector() can be used on the document fragment returned by the
+  // createContextualFragment() function just like using on any other HTML element.
   const toDoList = document
     .createRange()
     .createContextualFragment(ts)
@@ -73,9 +69,32 @@ function renderToDoTwo() {
 function attachClickEventToToDoItems(toDoItems) {
   for (const item of toDoItems) {
     item.addEventListener("click", (e) => {
-      console.log(`You clicked ${e.target.textContent}`);
-      e.target.remove();
-      console.log(e.target);
+      // Get reference to the todo item clicked & its parent
+      const todoItem = e.target;
+      const todoParent = todoItem.parentNode;
+      console.log(`You clicked ${todoItem.textContent}`);
+      console.log(todoParent);
+
+      // Remove the todo item from the DOM
+      todoItem.remove();
+
+      // If the todo list is now empty, add a placeholder to indicate
+      // there are no todo items
+      if (todoParent.children.length < 1) {
+        const noToDoItems = "<li>No ToDo Items</li>";
+        todoParent.insertAdjacentHTML("beforeend", noToDoItems);
+      }
     });
+  }
+}
+
+// This function iterates through a parent element and
+// removes all its children and event handlers attached to them.
+// NOTE: Using parent.innerHTML = "" to remove child nodes does not
+// remove the event handlers of the child nodes, causing a memory leak.
+// Ref: https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/
+function removeAllChildren(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
   }
 }
